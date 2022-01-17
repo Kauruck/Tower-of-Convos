@@ -4,5 +4,5 @@ public class DamageSource {
     public IHandleDamageTick damageTick;
     public bool isSingle;
     public float duration;
-    public string SoruceName;
+    public string SourceName;
 }

@@ -402,6 +402,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45bc61ee687e0555898ffff72286d10d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSource:
+    amount: 1
+    isSingle: 1
+    duration: 2
+    SourceName: Test
 --- !u!1 &1997669019
 GameObject:
   m_ObjectHideFlags: 0
