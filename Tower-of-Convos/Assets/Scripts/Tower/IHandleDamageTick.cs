@@ -10,5 +10,5 @@ public interface IHandleDamageTick{
     ///<returns>
     ///The damage the entity will take
     ///</returns>
-    public int damageTick(Entity entity);
+    public float damageTick(Entity entity);
 }
