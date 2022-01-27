@@ -11,4 +11,6 @@ public interface IHandleDamageTick{
     ///The damage the entity will take
     ///</returns>
     public float damageTick(Entity entity);
+
+    public int timeBetweenDamage();
 }
