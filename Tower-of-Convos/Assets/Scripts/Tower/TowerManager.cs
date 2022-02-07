@@ -6,9 +6,10 @@ using System;
 public class TowerManager : MonoBehaviour
 {
 
+    public static TowerManager INSTANCE;
     public int timeScale = 2;
 
-    private float localTime = 0;
+    public float localTime = 0;
     public static Dictionary<Action, int> TickHandler = new Dictionary<Action, int>();
     public static Dictionary<Action, int> LateTickHandler = new Dictionary<Action, int>();
 
@@ -18,7 +19,7 @@ public class TowerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        INSTANCE = this;
     }
 
     void tick(){

@@ -32,7 +32,7 @@ public class Entity : MonoBehaviour {
 
     void tick(){
         ProcessDamage();
-        if(tickSinceLastDamage > 5){
+        if(tickSinceLastDamage > 0){
             damageText.SetText("");
         }
         tickSinceLastDamage ++;
@@ -45,6 +45,7 @@ public class Entity : MonoBehaviour {
             float damage = 0;
             if(instance.damageSource.isSingle){
                 damage = instance.damageSource.amount;
+                toRemove.Add(instance);
             }else{
                 damage = instance.damageSource.damageTick.damageTick(this);
                 instance.totaleTime += 1;

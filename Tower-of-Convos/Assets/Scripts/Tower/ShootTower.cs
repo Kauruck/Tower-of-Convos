@@ -20,13 +20,14 @@ public class ShootTower : MonoBehaviour
     }
 
     void tick(){
+        if(entitiesInRange.Count < 1)
+            return;
         int random = Random.Range(0, entitiesInRange.Count);
         Entity entity = entitiesInRange[random];
-        GameObject newBullet = GameObject.Instantiate(bullet, this.transform.position, Quaternion.identity);
-        Debug.Log(newBullet);        
-        Bullet bulletComponent = newBullet.GetComponent<Bullet>();
+        GameObject newBullet = GameObject.Instantiate(bullet, this.transform.position, Quaternion.identity);      
+        HomingBullet bulletComponent = newBullet.GetComponent<HomingBullet>();
         bulletComponent.setTarget(entity.gameObject);
-        bulletComponent.setFreze(false);
+        bulletComponent.setFreeze(false);
     }
 
     void OnTriggerEnter2D(Collider2D collider){
