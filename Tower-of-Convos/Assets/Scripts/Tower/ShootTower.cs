@@ -25,7 +25,7 @@ public class ShootTower : MonoBehaviour
         int random = Random.Range(0, entitiesInRange.Count);
         Entity entity = entitiesInRange[random];
         GameObject newBullet = GameObject.Instantiate(bullet, this.transform.position, Quaternion.identity);      
-        HomingBullet bulletComponent = newBullet.GetComponent<HomingBullet>();
+        Bullet bulletComponent = newBullet.GetComponent<Bullet>();
         bulletComponent.setTarget(entity.gameObject);
         bulletComponent.setFreeze(false);
     }
