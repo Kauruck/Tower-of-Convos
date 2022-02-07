@@ -1,15 +1,18 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 public class Entity : MonoBehaviour {
 
     public List<DamageSourceInstance> damageSources = new List<DamageSourceInstance>();
 
+    public TextMeshProUGUI damageText;
+
     public float health = 20;
 
-    public int tick = 0;
+    public int tickSinceLastDamage = 0;
 
     void OnEnable(){
-        TowerManager.TickHandler.Add(() => this.ProcessDamage(), 1);
+        TowerManager.LateTickHandler.Add(() => this.tick(), 1);
     }
 
     public bool hasDamageSourceFromTower(GameObject tower){
@@ -25,6 +28,14 @@ public class Entity : MonoBehaviour {
 
     public void addDamageSource(DamageSourceInstance damageSource){
         this.damageSources.Add(damageSource);
+    }
+
+    void tick(){
+        ProcessDamage();
+        if(tickSinceLastDamage > 5){
+            damageText.SetText("");
+        }
+        tickSinceLastDamage ++;
     }
 
     void ProcessDamage(){
@@ -45,7 +56,8 @@ public class Entity : MonoBehaviour {
         }
         if(totalDamage != 0){
             this.health -= totalDamage;
-            Debug.Log(totalDamage);
+            tickSinceLastDamage = 0;
+            damageText.SetText(totalDamage.ToString());
         }
         foreach(DamageSourceInstance current in toRemove){
             damageSources.Remove(current);

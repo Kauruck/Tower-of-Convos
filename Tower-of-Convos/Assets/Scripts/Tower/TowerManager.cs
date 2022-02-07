@@ -6,7 +6,11 @@ using System;
 public class TowerManager : MonoBehaviour
 {
 
+    public int timeScale = 2;
+
+    private float localTime = 0;
     public static Dictionary<Action, int> TickHandler = new Dictionary<Action, int>();
+    public static Dictionary<Action, int> LateTickHandler = new Dictionary<Action, int>();
 
     public static int maxTimeElapsed = 60;
 
@@ -17,10 +21,8 @@ public class TowerManager : MonoBehaviour
         
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        timeElapsed += Mathf.FloorToInt(Time.deltaTime);
+    void tick(){
+        timeElapsed += 1;
         if(timeElapsed > maxTimeElapsed){
             timeElapsed = maxTimeElapsed;
         }
@@ -29,8 +31,24 @@ public class TowerManager : MonoBehaviour
                 current.Key.Invoke();
             }
         }
+        foreach(KeyValuePair<Action, int> current in LateTickHandler){
+            if(timeElapsed % current.Value == 0){
+                current.Key.Invoke();
+            }
+        }
         if(timeElapsed == maxTimeElapsed){
             timeElapsed = 0;
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        localTime += Time.deltaTime;
+        if(localTime > timeScale){
+            tick();
+            localTime = 0;
+        }
+        
     }
 }

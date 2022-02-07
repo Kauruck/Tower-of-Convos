@@ -346,7 +346,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -409,7 +409,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -288.91174, y: 0, z: -231.76439, w: 0}
+  m_margin: {x: -295.57233, y: 0, z: -298.3698, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -736,6 +736,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f27b3a337806ebb959865301124b3174, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeScale: 2
   timeElapsed: 0
 --- !u!4 &1906200149
 Transform:
@@ -784,8 +785,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b13ada549c09a5b8cc70894d2fe3c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageText: {fileID: 1013182013}
   health: 20
-  tick: 0
+  tickSinceLastDamage: 0
 --- !u!212 &1997669021
 SpriteRenderer:
   m_ObjectHideFlags: 0
