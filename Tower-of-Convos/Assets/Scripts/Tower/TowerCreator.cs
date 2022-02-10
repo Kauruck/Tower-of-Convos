@@ -6,7 +6,9 @@ public class TowerCreator : MonoBehaviour
 {
     public int money;
     private GameObject p;
+    private GameObject p1;
     public GameObject P1;
+    public GameObject P2;
     public List<Vector2> towerpos = new List<Vector2>();
     public List<GameObject> towers = new List<GameObject>();
     public bool check = false;
@@ -49,8 +51,13 @@ public class TowerCreator : MonoBehaviour
                 {
                     Debug.Log(money);
                     Debug.Log("placed");
-                    p = (GameObject)Instantiate(P1, nWorldPosition, this.transform.rotation);
-                    towers.Add(p);
+                    p = (GameObject)Instantiate(P2, nWorldPosition, this.transform.rotation);
+                    if (p.GetComponent<SpawnCollider>().checkCollider == true)
+                    {
+                        Debug.Log(p.GetComponent<SpawnCollider>().checkCollider);
+                        p1 = (GameObject)Instantiate(P1, nWorldPosition, this.transform.rotation);
+                    }
+                    towers.Add(p1);
                     towerpos.Add(nWorldPosition);
                     money = money - 750;
                 }
@@ -75,3 +82,4 @@ public class TowerCreator : MonoBehaviour
         }
     }
 }
+
