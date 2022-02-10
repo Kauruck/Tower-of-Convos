@@ -5,8 +5,6 @@ public class Entity : MonoBehaviour {
 
     public List<DamageSourceInstance> damageSources = new List<DamageSourceInstance>();
 
-    public TextMeshProUGUI damageText;
-
     public float health = 20;
 
     public int tickSinceLastDamage = 0;
@@ -32,9 +30,6 @@ public class Entity : MonoBehaviour {
 
     void tick(){
         ProcessDamage();
-        if(tickSinceLastDamage > 0){
-            damageText.SetText("");
-        }
         tickSinceLastDamage ++;
     }
 
@@ -58,7 +53,6 @@ public class Entity : MonoBehaviour {
         if(totalDamage != 0){
             this.health -= totalDamage;
             tickSinceLastDamage = 0;
-            damageText.SetText(totalDamage.ToString());
         }
         foreach(DamageSourceInstance current in toRemove){
             damageSources.Remove(current);
