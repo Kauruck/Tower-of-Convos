@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(MovmentHelper))]
 public class HomingBullet : MonoBehaviour
 {
     public DamageSource damageSource;
@@ -14,25 +15,18 @@ public class HomingBullet : MonoBehaviour
 
     bool freeze = true;
 
-    public Vector3 nextPos;
-
-    private Vector3 startPos;
+    MovmentHelper movmentHelper;
     // Start is called before the first frame update
     void Start()
     {
+        movmentHelper = this.GetComponent<MovmentHelper>();
         TowerManager.TickHandler.Add(() => this.tick(), 1);
-        nextPos = this.transform.position;
-        startPos = this.transform.position;
+        movmentHelper.updateDirection = () => Vector3.Normalize(target.transform.position - transform.position);
     }
 
     void Update()
     {
-        if(!hit){
-            this.transform.position = Vector3.Lerp(this.startPos, this.nextPos, TowerManager.INSTANCE.localTime / (TowerManager.INSTANCE.timeScale));
-        }
-        else{
-            this.transform.position = Vector3.Lerp(this.transform.position, this.target.transform.position, TowerManager.INSTANCE.localTime / (TowerManager.INSTANCE.timeScale));
-        }
+
     }
 
 
@@ -43,33 +37,32 @@ public class HomingBullet : MonoBehaviour
             if(target == null){
                 GameObject.Destroy(this.gameObject);
             }
-            if(this.transform.position != this.nextPos)
-                this.transform.position = nextPos;
             if(hit){
                 DamageSourceInstance instance = new DamageSourceInstance(this.gameObject, target, damageSource);
                 target.GetComponent<Entity>().addDamageSource(instance);
                 GameObject.Destroy(this.gameObject);
             }
-            else {
-                Vector3 offset = target.transform.position - transform.position;
-                offset = Vector3.Normalize(offset);
-                this.nextPos = this.transform.position + offset * speed;
-                startPos = this.transform.position;
-            }
         }
     }
 
     void OnTriggerEnter2D(Collider2D collider){
-        if(collider.gameObject == target){
+        if(collider.gameObject == target)
+        {
             hit = true;
+            movmentHelper.direction = Vector3.zero;
         }
     }
 
     public void setTarget(GameObject target){
+        if(movmentHelper == null)
+        {
+            this.movmentHelper = this.GetComponent<MovmentHelper>();
+        }
         this.target = target;
     }
 
     public void setFreeze(bool freeze){
         this.freeze = freeze;
+        movmentHelper.frozen = freeze;
     }
 }

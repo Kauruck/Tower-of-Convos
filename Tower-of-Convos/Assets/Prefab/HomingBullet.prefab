@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3219820425930281664}
   - component: {fileID: 3219820425930281666}
   - component: {fileID: 8323384838365779583}
+  - component: {fileID: 8299127261763428674}
   m_Layer: 0
   m_Name: HomingBullet
   m_TagString: Untagged
@@ -103,7 +104,6 @@ MonoBehaviour:
     duration: 0
     SourceName: Bullet
   speed: 1
-  nextPos: {x: 0, y: 0, z: 0}
 --- !u!58 &8323384838365779583
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -120,3 +120,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &8299127261763428674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3219820425930281679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ef9280a2a41d4da2931e6d831ea3b1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  direction: {x: 0, y: 0, z: 0}
+  speed: 1
+  frozen: 0
