@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 [ExecuteInEditMode]
 [RequireComponent(typeof(SpriteRenderer))]
 public class LifeBar : MonoBehaviour
 {
-
-
     public Sprite[] sprites;
 
     public float Filled {
@@ -18,7 +17,8 @@ public class LifeBar : MonoBehaviour
             }
     }
 
-    private float _filled = 1;
+    [SerializeProperty("Filled")]
+    public float _filled = 1;
 
     private SpriteRenderer spriteRenderer;
     // Start is called before the first frame update
@@ -29,10 +29,14 @@ public class LifeBar : MonoBehaviour
     }
 
     void UpdateBar(){
+        if(spriteRenderer == null)
+            return;
         int level = Mathf.RoundToInt(_filled/0.1f);
+        level = sprites.Length - level -1;
         if(level < sprites.Length && level >= 0)
         {
             spriteRenderer.sprite = sprites[level];
         }
     }
+
 }

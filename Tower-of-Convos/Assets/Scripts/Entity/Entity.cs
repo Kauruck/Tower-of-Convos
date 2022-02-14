@@ -5,7 +5,11 @@ public class Entity : MonoBehaviour {
 
     public List<DamageSourceInstance> damageSources = new List<DamageSourceInstance>();
 
+    public LifeBar lifeBar;
+
     public float health = 20;
+
+    public float maxHealth = 20;
 
     public int tickSinceLastDamage = 0;
 
@@ -29,8 +33,14 @@ public class Entity : MonoBehaviour {
     }
 
     void tick(){
+        if(this == null)
+            return;
         ProcessDamage();
         tickSinceLastDamage ++;
+        lifeBar.Filled = health / maxHealth;
+        if(this.health == 0){
+            GameObject.Destroy(this.gameObject);
+        }
     }
 
     void ProcessDamage(){
