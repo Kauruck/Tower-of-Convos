@@ -22,10 +22,43 @@ public class SpawnCollider : MonoBehaviour
     {
         
     }
-
-    void OnCollisionEnter2D(Collision2D col)
+    public bool mCheckCollider()
     {
-       
-        checkCollider=true;
+
+        /*if (CC.IsTouchingLayers(LayerMask.GetMask("SpawnCollider")) == true)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }*/
+
+        if (Physics2D.OverlapCircle(this.transform.position, 20000, 6) == null)
+        {
+            Debug.Log("false1");
+            return false;
+           
+        }
+        else
+        {
+            Debug.Log("true1");
+            return true;
+            
+        }
+        Debug.Log("deinemom");
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == 8 )
+        {
+            checkCollider = true ;
+        }
+
+        if (collision.collider.gameObject.layer == LayerMask.NameToLayer("SpawnCollider"))
+        {
+            checkCollider = true;
+        }
     }
 }

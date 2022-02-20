@@ -37,30 +37,21 @@ public class TowerCreator : MonoBehaviour
             if (money > 750)
             {
 
-                for (int i = 0; i < towerpos.Count; i++)
-                {
-                    if (towerpos[i].x + 3 > nWorldPosition.x && nWorldPosition.x > towerpos[i].x - 3 && towerpos[i].y + 3 > nWorldPosition.y && nWorldPosition.y > towerpos[i].y - 3)
-                    {
-                        check = true;
-                        Debug.Log("Kannanich");
-                    }
-                   
-
-                }
-                if (check == false)
-                {
+                
+                
                     Debug.Log(money);
                     Debug.Log("placed");
-                    p = (GameObject)Instantiate(P2, nWorldPosition, this.transform.rotation);
-                    if (p.GetComponent<SpawnCollider>().checkCollider == true)
+                    p = (GameObject)Instantiate(P1, nWorldPosition, this.transform.rotation);
+                    
+                    if (p.GetComponent<SpawnCollider>().mCheckCollider() == false)
                     {
                         Debug.Log(p.GetComponent<SpawnCollider>().checkCollider);
-                        p1 = (GameObject)Instantiate(P1, nWorldPosition, this.transform.rotation);
+                        p1 = (GameObject)Instantiate(P2, nWorldPosition, this.transform.rotation);
                     }
                     towers.Add(p1);
                     towerpos.Add(nWorldPosition);
                     money = money - 750;
-                }
+                
                 check = false;
             }
         }
