@@ -38,10 +38,15 @@ public class BoundaryBackground : MonoBehaviour
         ComputeBuffer coralBuffer = new ComputeBuffer(corals.Length, totalSize);
         coralBuffer.SetData(corals);
         shader.SetBuffer(kernalIndex, "corals", coralBuffer);
+        shader.SetInt("coralsSize", corals.Length);
         //Texture
         shader.SetTexture(kernalIndex, "Result", renderTexture);
+        //Texture demensions
+        shader.SetFloat("width", renderTexture.width);
+        shader.SetFloat("height", renderTexture.height);
         //Dispatch
         shader.Dispatch(kernalIndex, renderTexture.width/8, renderTexture.height/8, 1);
+        coralBuffer.Dispose();
     }
 
 // Update is called once per frame
