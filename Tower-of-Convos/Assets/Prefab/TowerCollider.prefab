@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8338582795377214787}
   - component: {fileID: -3641930941902458978}
   - component: {fileID: 5827436731667499988}
+  - component: {fileID: 4073150209934199240}
   m_Layer: 6
   m_Name: TowerCollider
   m_TagString: Untagged
@@ -45,9 +46,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.8511212, y: 0}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 2.3511212
+  m_Radius: 0.5
 --- !u!114 &5827436731667499988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,3 +63,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CC: {fileID: -3641930941902458978}
   checkCollider: 0
+--- !u!114 &4073150209934199240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108733934065568065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb447b5974b343b4784ae5d9cd1b8024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

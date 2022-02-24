@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class TestMover : MonoBehaviour
+    
 {
+    public bool Hud = false;
     // Start is called before the first frame update
     void Start()
     {

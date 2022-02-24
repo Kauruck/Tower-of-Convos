@@ -5,24 +5,32 @@ using UnityEngine;
 public class SpawnCollider : MonoBehaviour
     
 {
-
+    
+    
     public CircleCollider2D CC;
     public bool checkCollider = false;
+    public GameObject f;
+    public bool Hud;
+    private List<Collider2D> collisions = new List<Collider2D>();
+
     // Start is called before the first frame update
     void Start()
     {
-        if (CC.IsTouchingLayers(LayerMask.GetMask("SpawnCollider")) == true)
-        { 
-        checkCollider = true;
-    }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if ( Hud == true)
+        {
+            Debug.Log("fett");
+            f.GetComponent<TestMover>().Hud = true;
+            Hud = false;
+        }
+
     }
-    public bool mCheckCollider()
+    public bool mCheckCollider(Vector3 pPosition)
     {
 
         /*if (CC.IsTouchingLayers(LayerMask.GetMask("SpawnCollider")) == true)
@@ -33,21 +41,23 @@ public class SpawnCollider : MonoBehaviour
         {
             return false;
         }*/
-
-        if (Physics2D.OverlapCircle(this.transform.position, 20000, 6) == null)
+        
+        //Debug.Log(Physics2D.OverlapCircle(pPosition, 2, LayerMask.GetMask("SpawnCollider")).gameObject == this.gameObject);
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.layerMask = LayerMask.GetMask("SpawnCollider");
+        Physics2D.OverlapCircle(pPosition, 2, filter, collisions);
+        //Debug.Log(collisions[0].gameObject);
+        for(int i = 0; i<collisions.Count;i++)
+        if (collisions[i].gameObject != this.gameObject)
         {
-            Debug.Log("false1");
-            return false;
+            //Debug.Log("false1");
+            return true;
            
         }
-        else
-        {
-            Debug.Log("true1");
-            return true;
-            
-        }
-        Debug.Log("deinemom");
-    }
+        return false;
+
+           }
+   
 
     void OnCollisionEnter2D(Collision2D collision)
     {
