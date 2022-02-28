@@ -22,12 +22,7 @@ public class SpawnCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ( Hud == true)
-        {
-            Debug.Log("fett");
-            f.GetComponent<TestMover>().Hud = true;
-            Hud = false;
-        }
+        
 
     }
     public bool mCheckCollider(Vector3 pPosition)

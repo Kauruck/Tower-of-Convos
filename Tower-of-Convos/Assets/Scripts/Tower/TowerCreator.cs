@@ -7,17 +7,18 @@ public class TowerCreator : MonoBehaviour
     public int money = 20000;
     private int clickCheck;
     private GameObject p;
-    private GameObject p1;
+    public GameObject p1;
     public GameObject P1;
     public GameObject P2;
+    public GameObject P3;
     public List<Vector2> towerpos = new List<Vector2>();
     public List<GameObject> towers = new List<GameObject>();
     public List<GameObject> checkers = new List<GameObject>();
-    public bool check = false;
-    public bool check2 = false;
+    private bool check = false;
+    private bool check2 = false;
     public Vector2 nWorldPosition;
     public Vector3 worldPosition;
-    private Vector3 tempPos;
+    public Vector3 tempPos;
     private List<RaycastHit2D> hit = new List<RaycastHit2D>();
 
     // Start is called before the first frame update
@@ -67,16 +68,24 @@ public class TowerCreator : MonoBehaviour
                 
                 check = false;
             }
-            RaycastHit2D hit1 = Physics2D.Raycast(nWorldPosition, Vector2.zero, 1f, LayerMask.GetMask("SpawnCollider"));
-            hit1.collider.GetComponent<SpawnCollider>().Hud = true;
+            
 
         }
-       
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+
+            RaycastHit2D hit1 = Physics2D.Raycast(nWorldPosition, Vector2.zero, 1f, LayerMask.GetMask("SpawnCollider"));
+            hit1.collider.GetComponent<SpawnCollider>().Hud = true;
+            P3 = hit1.collider.gameObject;
+
+        }
 
 
 
-            
-        
+
+
+
     }
     void FixedUpdate()
     {
