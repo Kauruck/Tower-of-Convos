@@ -97,7 +97,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f815f85cb8b10b0749072dc19bac4ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageSource:
+    amount: 35
+    isSingle: 1
+    duration: 0
+    SourceName: Test
   bullet: {fileID: 4911987158492067027, guid: cb37db111ad0aa64794efa7cc916ee82, type: 3}
+  Damage: 40
 --- !u!58 &7506768191151901008
 CircleCollider2D:
   m_ObjectHideFlags: 0

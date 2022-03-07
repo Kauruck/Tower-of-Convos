@@ -27,6 +27,6 @@ public class UIMoney : MonoBehaviour
     void Update()
     {
         money = hand.GetComponent<TowerCreator>().money;
-        gameObject.GetComponent<TextMeshProUGUI>().text = money.ToString();
+        gameObject.GetComponent<TextMeshProUGUI>().text = "Money: "+money.ToString();
     }
 }
