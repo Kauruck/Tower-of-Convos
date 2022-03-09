@@ -9,14 +9,14 @@ public class BezierHelper
         t = Mathf.Clamp01(t);
 
         float x = ((1 - t) * (1 - t) * (1 - t)) * curve.pointA.x
-           + 3 * ((1 - t) * (1 - t)) * t * curve.pointB.x
-           + 3 * (1 - t) * (t * t) * curve.controllA.x
-           + (t * t * t) * curve.controllB.x;
+           + 3 * ((1 - t) * (1 - t)) * t * curve.controllA.x
+           + 3 * (1 - t) * (t * t) * curve.controllB.x
+           + (t * t * t) * curve.pointB.x;
 
         float y = ((1 - t) * (1 - t) * (1 - t)) * curve.pointA.y
-           + 3 * ((1 - t) * (1 - t)) * t * curve.pointB.y
-           + 3 * (1 - t) * (t * t) * curve.controllA.y
-           + (t * t * t) * curve.controllB.y;
+           + 3 * ((1 - t) * (1 - t)) * t * curve.controllA.y
+           + 3 * (1 - t) * (t * t) * curve.controllB.y
+           + (t * t * t) * curve.pointB.y;
 
         return new Vector2(x,y);
     }
