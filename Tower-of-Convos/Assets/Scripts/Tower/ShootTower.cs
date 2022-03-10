@@ -5,7 +5,9 @@ using UnityEngine;
 public class ShootTower : MonoBehaviour
 {
     List<Entity> entitiesInRange = new List<Entity>();
+    public DamageSource damageSource;
     public GameObject bullet;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +29,7 @@ public class ShootTower : MonoBehaviour
         GameObject newBullet = GameObject.Instantiate(bullet, this.transform.position, Quaternion.identity);      
         Bullet bulletComponent = newBullet.GetComponent<Bullet>();
         bulletComponent.setTarget(entity.gameObject);
+        bulletComponent.damageSource = this.damageSource;
         bulletComponent.setFreeze(false);
     }
 
