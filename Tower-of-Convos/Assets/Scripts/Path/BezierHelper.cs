@@ -57,4 +57,8 @@ public class BezierHelper
         parts = lengthArray;
         return cLength;
     }
+
+    public static float txValue(BezierCurve curve){
+        return 1f/curve.length;
+    }
 }
