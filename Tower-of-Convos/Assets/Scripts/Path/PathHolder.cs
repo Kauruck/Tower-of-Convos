@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[ExecuteInEditMode]
+[RequireComponent(typeof(EdgeCollider2D))]
 public class PathHolder : MonoBehaviour
 {
 
     public BezierCurve[] curves = new BezierCurve[1];
     public Texture2D texture;
+    public float ColliderWitdh = 0.2f;
+
+    private EdgeCollider2D collider;
+
+    void Start(){
+        this.collider = this.GetComponent<EdgeCollider2D>();
+    }
 
     public Vector2 this[int index]{
         set => setPostionFromIndex(index, value);
@@ -16,6 +25,23 @@ public class PathHolder : MonoBehaviour
 
     public int Length {
         get => this.curves.Length * 4;
+    }
+
+    public void generateCollider(){
+        float stepSize = 1/10f;
+        List<Vector2> colliderPoints = new List<Vector2>();
+        foreach(BezierCurve curve in curves){
+            for(float t = 0; t <= 1; t += stepSize){
+                Vector2 pointOnLine = BezierHelper.calcPosition(curve, t);
+                float b1 = (Mathf.Sqrt(4*ColliderWitdh*ColliderWitdh*pointOnLine.y*pointOnLine.y+pointOnLine.x*pointOnLine.x) - pointOnLine.x)/2*pointOnLine.y;
+                float b2 = Mathf.Sqrt(ColliderWitdh * ColliderWitdh - b1 * b1);
+                Vector2 colliderPos = new Vector2(b1, b2);
+                //Vector2 mirrordPos = mirrorPoint(pointOnLine, colliderPos);
+                colliderPoints.Add(colliderPos);
+                //colliderPoints.Add(mirrordPos);
+            }
+        }
+        this.collider.points = colliderPoints.ToArray();
     }
 
     private void setPostionFromIndex(int index, Vector3 value){

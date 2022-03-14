@@ -10,6 +10,10 @@ public class PathEditor : Editor
     {
         base.OnInspectorGUI();
 
+        if(GUILayout.Button("Generate Collider")){
+            ((PathHolder)target).generateCollider();
+        }
+
     }
 
 
