@@ -22,7 +22,9 @@ public class PathFollower : MonoBehaviour
     void Update()
     {
         if(path != null){
-            this.transform.position = path.getPointOnCurves(x);
+            Vector3 pos = path.getPointOnCurves(x);
+            pos.z = 2;
+            this.transform.position = pos;
             if(x + LookAtOffset <= path.PathLength){
                 transform.right = ((Vector3)path.getPointOnCurves(x + LookAtOffset)) - transform.position;
             }

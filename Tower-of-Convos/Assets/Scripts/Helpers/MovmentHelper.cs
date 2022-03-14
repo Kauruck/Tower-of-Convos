@@ -14,6 +14,7 @@ public class MovmentHelper : MonoBehaviour
     public Func<Vector3> updateDirection;
     public bool frozen = false;
     private bool startRan = false;
+    public Transform lookPos;
     // Start is called before the first frame update
     public void Start()
     {
@@ -31,6 +32,9 @@ public class MovmentHelper : MonoBehaviour
         {
             if(!frozen)
                 this.transform.position = Vector3.Lerp(this.startPosition, this.nextPosition, TowerManager.INSTANCE.localTime/TowerManager.INSTANCE.timeScale);
+        }
+        if(lookPos != null){
+            this.transform.position = lookPos.position;
         }
     }
 

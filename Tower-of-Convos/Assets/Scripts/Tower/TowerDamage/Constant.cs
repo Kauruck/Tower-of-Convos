@@ -6,7 +6,7 @@ using UnityEngine;
 public class Constant : IHandleDamageTick
 {
 
-    public Constant(int damagePerTick, int timeBetweenDamage){
+    public Constant(float damagePerTick, int timeBetweenDamage){
         this.damagePerTick = damagePerTick;
         this.timeBetweenDamageValue = timeBetweenDamage;
     }

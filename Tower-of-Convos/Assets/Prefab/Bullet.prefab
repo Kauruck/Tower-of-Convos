@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4911987158492067027}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.7675598, y: -3.185093, z: 0}
+  m_LocalPosition: {x: -3.7675598, y: -3.185093, z: 1}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
     isSingle: 1
     duration: 0
     SourceName: Bullet
-  speed: 0.02
+  speed: 0.5
 --- !u!114 &4780886473654015233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,5 +133,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: 0}
-  speed: 1.5
+  speed: 10
   frozen: 0
