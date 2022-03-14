@@ -9,18 +9,6 @@ public class PathHolder : MonoBehaviour
     public BezierCurve[] curves = new BezierCurve[1];
     public Texture2D texture;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    public void Update()
-    {
-        
-    }
-
     public Vector2 this[int index]{
         set => setPostionFromIndex(index, value);
         get => getPostionFromIndex(index);
@@ -86,7 +74,7 @@ public class PathHolder : MonoBehaviour
 
     private Vector2 getPointOnCurves(float distance, int curveIndex){
         if(curveIndex >= curves.Length)
-            return new Vector2();
+            return BezierHelper.calcPosition(curves[curves.Length - 1], 1);
         BezierCurve curve = curves[curveIndex];
         if(distance <= curve.length){
             float t = curve.txValue * distance;

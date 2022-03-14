@@ -10,6 +10,8 @@ public class PathFollower : MonoBehaviour
 
     public float x = 0;
 
+    private float LookAtOffset = 0.2f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +23,9 @@ public class PathFollower : MonoBehaviour
     {
         if(path != null){
             this.transform.position = path.getPointOnCurves(x);
+            if(x + LookAtOffset <= path.PathLength){
+                transform.right = ((Vector3)path.getPointOnCurves(x + LookAtOffset)) - transform.position;
+            }
             x += Speed;
             if(x >= path.PathLength)
                 x = path.PathLength;
