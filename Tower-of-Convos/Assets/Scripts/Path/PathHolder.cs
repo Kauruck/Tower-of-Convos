@@ -14,6 +14,8 @@ public class PathHolder : MonoBehaviour
 
     private EdgeCollider2D collider;
 
+    public float colliderPoints = 100;
+
     void Start(){
         this.collider = this.GetComponent<EdgeCollider2D>();
     }
@@ -29,19 +31,27 @@ public class PathHolder : MonoBehaviour
 
     public void generateCollider(){
         float stepSize = 1/10f;
-        List<Vector2> colliderPoints = new List<Vector2>();
+        /*List<Vector2> colliderPoints = new List<Vector2>();
+        List<Vector2> colliderPointsBack = new List<Vector2>();
         foreach(BezierCurve curve in curves){
             for(float t = 0; t <= 1; t += stepSize){
-                Vector2 pointOnLine = BezierHelper.calcPosition(curve, t);
-                float b1 = (Mathf.Sqrt(4*ColliderWitdh*ColliderWitdh*pointOnLine.y*pointOnLine.y+pointOnLine.x*pointOnLine.x) - pointOnLine.x)/2*pointOnLine.y;
-                float b2 = Mathf.Sqrt(ColliderWitdh * ColliderWitdh - b1 * b1);
-                Vector2 colliderPos = new Vector2(b1, b2);
-                //Vector2 mirrordPos = mirrorPoint(pointOnLine, colliderPos);
-                colliderPoints.Add(colliderPos);
-                //colliderPoints.Add(mirrordPos);
+                List<Vector2> points = LineHelper.generateSattilits(BezierHelper.calcPosition(curve, t), BezierHelper.calcPosition(curve, t + 0.2f), ColliderWitdh);
+                colliderPoints.Add(points[0]);
+                colliderPointsBack.Add(points[1]);
             }
         }
-        this.collider.points = colliderPoints.ToArray();
+        colliderPoints.AddRange(colliderPointsBack);
+        this.collider.points = LineHelper.polySort(colliderPoints);*/
+        List<Vector2> points = new List<Vector2>();
+        foreach(BezierCurve curve in curves){
+            points.Add(curve.pointA);
+            float v = 1f/colliderPoints;
+            for(int i = 1; i < colliderPoints; i ++){
+                points.Add(BezierHelper.calcPosition(curve, v * i));
+            }
+            points.Add(curve.pointB);
+        }
+        this.collider.points = points.ToArray();
     }
 
     private void setPostionFromIndex(int index, Vector3 value){

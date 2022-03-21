@@ -26,7 +26,7 @@ public class PathFollower : MonoBehaviour
             pos.z = 2;
             this.transform.position = pos;
             if(x + LookAtOffset <= path.PathLength){
-                transform.right = ((Vector3)path.getPointOnCurves(x + LookAtOffset)) - transform.position;
+                transform.right = ((Vector3)path.getPointOnCurves(x + LookAtOffset)) - new Vector3(transform.position.x, transform.position.y, 0);
             }
             x += Speed;
             if(x >= path.PathLength)

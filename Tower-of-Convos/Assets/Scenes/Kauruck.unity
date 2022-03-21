@@ -185,6 +185,7 @@ MonoBehaviour:
     length: 23.184242
     txValue: 0.043132745
   texture: {fileID: 0}
+  ColliderWitdh: 0.2
 --- !u!4 &286617975
 Transform:
   m_ObjectHideFlags: 0
@@ -215,8 +216,26 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: -0.5, y: 0}
-  - {x: 0.5, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0.07962816, y: 0.18346487}
+  - {x: 0.016802734, y: 0.19929293}
+  - {x: 0.00040062264, y: 0.1999996}
+  - {x: -0.0019437933, y: 0.19999056}
+  - {x: -0.038445882, y: 0.19627}
+  - {x: -0.17936665, y: 0.08847377}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
   m_AdjacentStartPoint: {x: 0, y: 0}
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
