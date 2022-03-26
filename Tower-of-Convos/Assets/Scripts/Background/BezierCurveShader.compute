@@ -9,11 +9,9 @@ struct BezierCurve {
     float2 controllA;
     float2 controllB;
     float length;
+	float txValue;
 };
 RWTexture2D<float4> Result;
-int pathSize;
-int width;
-int height;
 RWStructuredBuffer<BezierCurve> curves;
 int curvesLength;
 float stepSize = 0.1f;
@@ -38,7 +36,7 @@ float distanceToPoint(float2 a, float2 b){
 	return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
-float distanceToCurve(Curve curve, float2 pos){
+float distanceToCurve(BezierCurve curve, float2 pos){
 	float t = 0;
 	float shortestDistance = distanceToPoint(calcPoint(curve, t), pos);
 	for(t = 0; t <= 1; t += stepSize){
@@ -55,9 +53,9 @@ void CSMain (uint3 id : SV_DispatchThreadID)
     float4 color = float4(0,0,0,0);
 
 	float shortestDistnace = 1e10;
-	for(int i = 0; i < curvesLenght; i++){
+	for(int i = 0; i < curvesLength; i++){
 		shortestDistnace = min(shortestDistnace, distanceToCurve(curves[i], id.xy));
 	}
 
-	Result[id.xy] = color;
+	Result[id.xy] = float4(shortestDistnace, shortestDistnace, shortestDistnace, 1);
 }

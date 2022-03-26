@@ -10,7 +10,7 @@ public class PathHolder : MonoBehaviour
 
     public BezierCurve[] curves = new BezierCurve[1];
     public Texture2D texture;
-    public float ColliderWitdh = 0.2f;
+    public float ColliderWidth = 0.2f;
 
     private EdgeCollider2D collider;
 
@@ -25,8 +25,20 @@ public class PathHolder : MonoBehaviour
         get => getPostionFromIndex(index);
     }
 
+    public Vector2 this[float t]{
+        get => getPositionFromT(t, 0);
+    }
+
     public int Length {
         get => this.curves.Length * 4;
+    }
+
+    public int maxT {
+        get => this.curves.Length;
+    }
+
+    public BezierCurve getCurveForT(float t){
+        return this.curves[Mathf.FloorToInt(t)];
     }
 
     public void generateCollider(){
@@ -38,7 +50,7 @@ public class PathHolder : MonoBehaviour
                 Vector2 currentPoint = BezierHelper.calcPosition(curve, t);
                 Vector2 normal =  BezierHelper.getNormalForCurve(curve, t, stepSize);
                 Vector2 normalPoint = currentPoint + normal;
-                List<Vector2> points = LineHelper.generateSattilits(currentPoint, normal, ColliderWitdh);
+                List<Vector2> points = LineHelper.generateSattilits(currentPoint, normal, ColliderWidth);
                 //So that it does not cross the line when it turns
                 if(LineHelper.onLeftSide(currentPoint, normalPoint, points[0])){
                     colliderPoints.Add(points[0]);
@@ -58,6 +70,14 @@ public class PathHolder : MonoBehaviour
         //So that the collider is closed
         colliderPoints.Add(colliderPoints[0]);
         this.collider.points = colliderPoints.ToArray();
+    }
+
+    private Vector2 getPositionFromT(float t, int curveIndex){
+        if(curveIndex >= this.curves.Length)
+            return BezierHelper.calcPosition(this.curves[this.curves.Length - 1], 1);
+        if(t <= 1)
+            return BezierHelper.calcPosition(this.curves[curveIndex], t);
+        return getPositionFromT(t - 1, curveIndex + 1);
     }
 
     private void setPostionFromIndex(int index, Vector3 value){
