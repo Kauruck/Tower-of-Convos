@@ -21,6 +21,14 @@ public class BezierHelper
         return new Vector2(x,y);
     }
 
+    public static Vector2 getNormalForCurve(BezierCurve curve, float t, float sampleDistance){
+        if(t + sampleDistance > 1){
+            return getNormalForCurve(curve, t - sampleDistance, sampleDistance);
+        }else{
+            return (calcPosition(curve, t + sampleDistance) - calcPosition(curve, t)).normalized;
+        }
+    }
+
     public static float lengthOfCurve(BezierCurve curve){
         float[] lengthArray = new float[lengthRes + 1];
         lengthArray[0] = 0;
@@ -38,6 +46,7 @@ public class BezierHelper
 
         return cLength;
     }
+
 
     public float lengthOfCurve(BezierCurve curve, out float[] parts){
         float[] lengthArray = new float[lengthRes];

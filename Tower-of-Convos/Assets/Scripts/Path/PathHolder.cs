@@ -14,7 +14,7 @@ public class PathHolder : MonoBehaviour
 
     private EdgeCollider2D collider;
 
-    public float colliderPoints = 100;
+    public float pointsPerCollider = 100;
 
     void Start(){
         this.collider = this.GetComponent<EdgeCollider2D>();
@@ -30,28 +30,34 @@ public class PathHolder : MonoBehaviour
     }
 
     public void generateCollider(){
-        float stepSize = 1/10f;
-        /*List<Vector2> colliderPoints = new List<Vector2>();
+        float stepSize = 1/pointsPerCollider;
+        List<Vector2> colliderPoints = new List<Vector2>();
         List<Vector2> colliderPointsBack = new List<Vector2>();
         foreach(BezierCurve curve in curves){
             for(float t = 0; t <= 1; t += stepSize){
-                List<Vector2> points = LineHelper.generateSattilits(BezierHelper.calcPosition(curve, t), BezierHelper.calcPosition(curve, t + 0.2f), ColliderWitdh);
-                colliderPoints.Add(points[0]);
-                colliderPointsBack.Add(points[1]);
+                Vector2 currentPoint = BezierHelper.calcPosition(curve, t);
+                Vector2 normal =  BezierHelper.getNormalForCurve(curve, t, stepSize);
+                Vector2 normalPoint = currentPoint + normal;
+                List<Vector2> points = LineHelper.generateSattilits(currentPoint, normal, ColliderWitdh);
+                //So that it does not cross the line when it turns
+                if(LineHelper.onLeftSide(currentPoint, normalPoint, points[0])){
+                    colliderPoints.Add(points[0]);
+                    colliderPointsBack.Add(points[1]);
+                    Debug.Log("Left");
+                }
+                else {
+                    colliderPoints.Add(points[1]);
+                    colliderPointsBack.Add(points[0]);
+                    Debug.Log("Right");
+                }
             }
         }
+        //So that it goes back
+        colliderPointsBack.Reverse();
         colliderPoints.AddRange(colliderPointsBack);
-        this.collider.points = LineHelper.polySort(colliderPoints);*/
-        List<Vector2> points = new List<Vector2>();
-        foreach(BezierCurve curve in curves){
-            points.Add(curve.pointA);
-            float v = 1f/colliderPoints;
-            for(int i = 1; i < colliderPoints; i ++){
-                points.Add(BezierHelper.calcPosition(curve, v * i));
-            }
-            points.Add(curve.pointB);
-        }
-        this.collider.points = points.ToArray();
+        //So that the collider is closed
+        colliderPoints.Add(colliderPoints[0]);
+        this.collider.points = colliderPoints.ToArray();
     }
 
     private void setPostionFromIndex(int index, Vector3 value){
