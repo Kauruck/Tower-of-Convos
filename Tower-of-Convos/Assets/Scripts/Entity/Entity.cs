@@ -38,7 +38,7 @@ public class Entity : MonoBehaviour {
         ProcessDamage();
         tickSinceLastDamage ++;
         lifeBar.Filled = health / maxHealth;
-        if(this.health == 0){
+        if(this.health <= 0){
             GameObject.Destroy(this.gameObject);
         }
     }

@@ -8,7 +8,7 @@ public class AOETower : MonoBehaviour
     List<Entity> entitiesInRange = new List<Entity>();
     public DamageSource damageSource;
     void Start(){
-        damageSource.damageTick = new Linear(0f, 0.25f);
+        damageSource.damageTick = new Constant(0.25f, 1);
         TowerManager.TickHandler.Add(() => this.tick(), 1);
     }
 

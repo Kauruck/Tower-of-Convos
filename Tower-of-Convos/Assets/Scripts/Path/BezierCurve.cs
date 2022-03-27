@@ -10,4 +10,5 @@ public struct BezierCurve
     public Vector2 controllA;
     public Vector2 controllB;
     public float length;
+    public float txValue;
 }

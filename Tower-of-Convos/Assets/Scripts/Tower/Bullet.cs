@@ -53,6 +53,7 @@ public class Bullet : MonoBehaviour
         {
             hit = true;
             movmentHelper.frozen = true;
+            movmentHelper.lookPos = target.transform;
             this.transform.position = target.transform.position;
         }
     }

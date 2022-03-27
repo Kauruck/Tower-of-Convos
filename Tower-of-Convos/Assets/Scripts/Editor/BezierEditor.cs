@@ -22,14 +22,16 @@ public class BezierEditor : PropertyDrawer{
         drawProperty("controllA", "C", position, property);
         drawProperty("controllB", "D", position, property);
         drawFlaotLable("length", "Length", position, property);
+        drawFlaotLable("txValue", "T/X", position, property);
 
         BezierCurve tmpCurve = new BezierCurve();
         tmpCurve.pointA = property.FindPropertyRelative("pointA").vector2Value;
         tmpCurve.pointB = property.FindPropertyRelative("pointB").vector2Value;
         tmpCurve.controllA = property.FindPropertyRelative("controllA").vector2Value;
         tmpCurve.controllB = property.FindPropertyRelative("controllB").vector2Value;
-        property.FindPropertyRelative("length").floatValue = BezierHelper.lengthOfCurve(tmpCurve);
-
+        tmpCurve.length = BezierHelper.lengthOfCurve(tmpCurve);
+        property.FindPropertyRelative("length").floatValue = tmpCurve.length;
+        property.FindPropertyRelative("txValue").floatValue = BezierHelper.txValue(tmpCurve);
         EditorGUI.indentLevel = indent;
 
         EditorGUI.EndProperty();
@@ -59,5 +61,5 @@ public class BezierEditor : PropertyDrawer{
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
-        return 22*5;
+        return 22*6;
     }}
