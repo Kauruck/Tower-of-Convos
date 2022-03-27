@@ -7,7 +7,7 @@ using UnityEngine;
 public class PathRenderer : MonoBehaviour
 {
 
-    public GameObject pathElement; 
+    public GameObject pathElement;
     public float distanceBetweenMarker;
     public float distanceToLine = 1;
     private PathHolder holder;
@@ -25,31 +25,37 @@ public class PathRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void generateTexture(){
-        foreach(GameObject obj in pathElements){
+    public void generateTexture()
+    {
+        foreach (GameObject obj in pathElements)
+        {
             GameObject.DestroyImmediate(obj);
         }
-        const float stepSize = 1f/100;
+        const float stepSize = 1f / 100;
         float lastDistance = 0;
         Vector2 lastPoint = holder[0f];
         //Outer Ring
-        for(float t = 0; t <= holder.maxT; t += stepSize){
+        for (float t = 0; t <= holder.maxT; t += stepSize)
+        {
             Vector2 point = holder[t];
             lastDistance += Vector2.Distance(lastPoint, point);
             lastPoint = point;
-            if(lastDistance >= distanceBetweenMarker){
+            if (lastDistance >= distanceBetweenMarker)
+            {
                 BezierCurve curve = holder.getCurveForT(t);
                 float localT = t - Mathf.FloorToInt(t);
                 Vector2 normal = BezierHelper.getNormalForCurve(curve, localT, stepSize);
                 Vector3 spawnPoint;
                 List<Vector2> points = LineHelper.generateSattilits(point, normal, distanceToLine);
-                if(LineHelper.onLeftSide(point, point + normal, points[0])){
+                if (LineHelper.onLeftSide(point, point + normal, points[0]))
+                {
                     spawnPoint = points[0];
                 }
-                else{
+                else
+                {
                     spawnPoint = points[1];
                 }
                 spawnPoint.z = this.transform.position.z;
@@ -60,22 +66,26 @@ public class PathRenderer : MonoBehaviour
             }
         }
         //Inner Ring
-         for(float t = 0; t <= holder.maxT; t += stepSize){
+        for (float t = 0; t <= holder.maxT; t += stepSize)
+        {
             Vector2 point = holder[t];
-            lastDistance += Vector2.Distance(lastPoint, point);
-            lastPoint = point;
-            if(lastDistance >= distanceBetweenMarker){
-                BezierCurve curve = holder.getCurveForT(t);
-                float localT = t - Mathf.FloorToInt(t);
-                Vector2 normal = BezierHelper.getNormalForCurve(curve, localT, stepSize);
-                Vector3 spawnPoint;
-                List<Vector2> points = LineHelper.generateSattilits(point, normal, distanceToLine);
-                if(!LineHelper.onLeftSide(point, point + normal, points[0])){
-                    spawnPoint = points[0];
-                }
-                else{
-                    spawnPoint = points[1];
-                }
+            BezierCurve curve = holder.getCurveForT(t);
+            float localT = t - Mathf.FloorToInt(t);
+            Vector2 normal = BezierHelper.getNormalForCurve(curve, localT, stepSize);
+            Vector3 spawnPoint;
+            List<Vector2> points = LineHelper.generateSattilits(point, normal, distanceToLine);
+            if (!LineHelper.onLeftSide(point, point + normal, points[0]))
+            {
+                spawnPoint = points[0];
+            }
+            else
+            {
+                spawnPoint = points[1];
+            }
+            lastDistance += Vector2.Distance(lastPoint, spawnPoint);
+            lastPoint = spawnPoint;
+            if (lastDistance >= distanceBetweenMarker)
+            {
                 spawnPoint.z = this.transform.position.z;
                 GameObject obj = GameObject.Instantiate(pathElement, spawnPoint, Quaternion.identity);
                 obj.transform.SetParent(this.gameObject.transform);

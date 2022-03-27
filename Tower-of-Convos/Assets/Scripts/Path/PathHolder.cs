@@ -55,12 +55,10 @@ public class PathHolder : MonoBehaviour
                 if(LineHelper.onLeftSide(currentPoint, normalPoint, points[0])){
                     colliderPoints.Add(points[0]);
                     colliderPointsBack.Add(points[1]);
-                    Debug.Log("Left");
                 }
                 else {
                     colliderPoints.Add(points[1]);
                     colliderPointsBack.Add(points[0]);
-                    Debug.Log("Right");
                 }
             }
         }

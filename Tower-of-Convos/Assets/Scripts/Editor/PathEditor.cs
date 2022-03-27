@@ -20,6 +20,7 @@ public class PathEditor : Editor
 
     public void OnSceneGUI(){
         PathHolder holder = (PathHolder) target;
+        PathRenderer render = holder.GetComponent<PathRenderer>();
         Handles.color = Color.red;
         #region BezierHandelsLine
         foreach(BezierCurve current in holder.curves){
@@ -46,6 +47,10 @@ public class PathEditor : Editor
             if(EditorGUI.EndChangeCheck()){
                 Undo.RecordObject(holder, "Moved curve controll points");
                 holder[i] = currentPos;
+                holder.generateCollider();
+                if(render is {}){
+                    render.generateTexture();
+                }
             }
         }
         #endregion
