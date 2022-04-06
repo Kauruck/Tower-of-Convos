@@ -12,12 +12,12 @@ public class PathHolder : MonoBehaviour
     public Texture2D texture;
     public float ColliderWidth = 0.2f;
 
-    private EdgeCollider2D collider;
+    private EdgeCollider2D PathCollider;
 
     public float pointsPerCollider = 100;
 
     void Start(){
-        this.collider = this.GetComponent<EdgeCollider2D>();
+        this.PathCollider = this.GetComponent<EdgeCollider2D>();
     }
 
     public Vector2 this[int index]{
@@ -67,7 +67,7 @@ public class PathHolder : MonoBehaviour
         colliderPoints.AddRange(colliderPointsBack);
         //So that the collider is closed
         colliderPoints.Add(colliderPoints[0]);
-        this.collider.points = colliderPoints.ToArray();
+        this.PathCollider.points = colliderPoints.ToArray();
     }
 
     private Vector2 getPositionFromT(float t, int curveIndex){

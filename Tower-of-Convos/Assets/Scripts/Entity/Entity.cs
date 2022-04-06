@@ -44,6 +44,8 @@ public class Entity : MonoBehaviour {
     }
 
     void ProcessDamage(){
+        if(this is null)
+            return;
         List<DamageSourceInstance> toRemove = new List<DamageSourceInstance>();
         float totalDamage = 0;
         foreach(DamageSourceInstance instance in damageSources){
